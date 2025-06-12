@@ -35,9 +35,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - `page.tsx` - Home page component
   - `layout.tsx` - Root layout with providers
   - `globals.css` - Global styles and Tailwind directives
+  - `contact/` - Contact page
 - `components/` - Reusable UI components
   - `ui/` - Basic UI components
+  - `contact/` - Contact form components
 - `lib/` - Utility functions and custom hooks
+  - `schemas/` - Zod validation schemas
 
 ## Features
 
@@ -46,6 +49,42 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - ✅ Fully responsive design
 - ✅ Type-safe with TypeScript
 - ✅ Animations with Framer Motion
+- ✅ Beautiful contact form with validation
+- ✅ Backend API integration
+
+## Contact Form
+
+This project includes a reusable contact form component with the following features:
+
+- Form validation using React Hook Form and Zod
+- Responsive design with mobile-first approach
+- Success and error state handling
+- Integration with backend API
+- Animated feedback messages
+
+To use the contact form, simply import it:
+
+```tsx
+import { ContactForm } from '@/components/contact';
+
+export default function MyPage() {
+  return <ContactForm />;
+}
+```
+
+The form requires a backend API endpoint. Set the API URL in your environment:
+
+```
+NEXT_PUBLIC_API_URL=http://your-backend-api-url
+```
+
+If you don't set this variable, the form will default to `http://localhost:4000/api` for local development.
+
+For deployment:
+1. Create a `.env.local` file with your production API URL
+2. When deploying to Vercel, add the environment variable in your project settings
+
+See the component documentation in `components/contact/README.md` for more details.
 
 ## Learn More
 
