@@ -35,28 +35,50 @@ export default function ContactPage() {
 
 ## Environment Variables
 
-The component requires the following environment variable:
+The component supports the following environment variables:
 
 ```
-NEXT_PUBLIC_API_URL=http://your-backend-api-url
+# Required: Backend API URL
+NEXT_PUBLIC_API_URL=http://localhost:3001/api
+
+# Optional: Tenant ID for multi-tenant systems
+NEXT_PUBLIC_TENANT_ID=your_firebase_auth_uid_here
 ```
 
-If not provided, it will default to `http://localhost:4000/api`.
+**Variable Details:**
+- `NEXT_PUBLIC_API_URL`: Backend API base URL (defaults to `http://localhost:3001/api`)
+- `NEXT_PUBLIC_TENANT_ID`: Firebase Auth UID for multi-tenant isolation (optional)
 
-### Setting the environment variable
+### Setting the environment variables
 
 For local development:
 1. Create a `.env.local` file in the root of your Next.js project
-2. Add `NEXT_PUBLIC_API_URL=http://localhost:4000/api` or your custom API URL
+2. Add the required variables:
+   ```
+   NEXT_PUBLIC_API_URL=http://localhost:3001/api
+   NEXT_PUBLIC_TENANT_ID=your_firebase_auth_uid_here
+   ```
 
 For production:
-1. When deploying to Vercel, add the environment variable in your project settings
+1. When deploying to Vercel, add both environment variables in your project settings
 2. For other hosting providers, follow their instructions for setting environment variables
+3. The tenant ID should be your Firebase Auth UID for proper multi-tenant isolation
 
-## API Endpoint
+## API Endpoints
 
-The form will send POST requests to `${NEXT_PUBLIC_API_URL}/contact` with the following payload:
+The form automatically selects the appropriate endpoint based on tenant configuration:
 
+**Multi-Tenant Mode** (when `NEXT_PUBLIC_TENANT_ID` is set):
+- Endpoint: `${NEXT_PUBLIC_API_URL}/tenant/contact/submit`
+- Headers: Includes `X-Tenant-ID` header with the tenant ID
+- Payload: Same as below
+
+**Legacy Mode** (when `NEXT_PUBLIC_TENANT_ID` is not set):
+- Endpoint: `${NEXT_PUBLIC_API_URL}/contact/submit`
+- Headers: Standard headers only
+- Payload: Same as below
+
+**Request Payload:**
 ```json
 {
   "name": "User Name",
@@ -70,10 +92,20 @@ The backend API should validate this data and respond with appropriate status co
 
 ## Backend API Requirements
 
-The backend API should:
+The backend API should support both endpoints:
 
-1. Accept POST requests to `/contact`
-2. Validate the incoming data
-3. Return appropriate HTTP status codes
-4. For errors, return JSON with an `error` field
-5. For success, return JSON with a `success` field 
+**Multi-Tenant Endpoint** (`/tenant/contact/submit`):
+1. Accept POST requests with `X-Tenant-ID` header
+2. Use tenant-specific configuration for email sending
+3. Validate the incoming data
+4. Return appropriate HTTP status codes
+
+**Legacy Endpoint** (`/contact/submit`):
+1. Accept POST requests without tenant context
+2. Use default/environment-based configuration
+3. Validate the incoming data
+4. Return appropriate HTTP status codes
+
+**Response Format:**
+- For errors: Return JSON with an `error` field
+- For success: Return JSON with a `success` field 

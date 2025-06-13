@@ -72,13 +72,24 @@ export default function MyPage() {
 }
 ```
 
-The form requires a backend API endpoint. Set the API URL in your environment:
+The form requires a backend API endpoint and supports multi-tenant configuration. Set the following environment variables:
 
 ```
-NEXT_PUBLIC_API_URL=http://your-backend-api-url
+# Required: Backend API URL
+NEXT_PUBLIC_API_URL=http://localhost:3001/api
+
+# Optional: Tenant ID for multi-tenant systems
+NEXT_PUBLIC_TENANT_ID=your_firebase_auth_uid_here
 ```
 
-If you don't set this variable, the form will default to `http://localhost:4000/api` for local development.
+**Environment Variable Details:**
+
+- `NEXT_PUBLIC_API_URL`: The base URL of your tenant API (defaults to `http://localhost:3001/api`)
+- `NEXT_PUBLIC_TENANT_ID`: Your Firebase Auth UID for multi-tenant isolation (optional)
+
+**Multi-Tenant Behavior:**
+- **With Tenant ID**: Uses `/api/tenant/contact/submit` endpoint with `X-Tenant-ID` header
+- **Without Tenant ID**: Uses legacy `/api/contact/submit` endpoint for backward compatibility
 
 For deployment:
 1. Create a `.env.local` file with your production API URL

@@ -39,24 +39,36 @@ export function ContactForm({ className, onSuccess }: ContactFormProps) {
     setError(null);
     
     // Use environment variable with fallback
-    // Make sure we're using the correct URL structure
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
     const apiUrl = baseUrl.endsWith('/api') ? baseUrl : `${baseUrl}/api`;
     
-    console.log('Submitting to:', `${apiUrl}/contact`);
+    // Get tenant ID from environment variable
+    const tenantId = process.env.NEXT_PUBLIC_TENANT_ID;
+    
+    // Determine which endpoint to use based on tenant ID availability
+    const endpoint = tenantId ? `${apiUrl}/tenant/contact/submit` : `${apiUrl}/contact/submit`;
+    
+    console.log('Submitting to:', endpoint);
+    console.log('Tenant ID:', tenantId || 'None (using legacy endpoint)');
     console.log('Data:', data);
     
     try {
-      const response = await fetch(`${apiUrl}/contact`, {
+      // Prepare headers
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      };
+      
+      // Add tenant ID header if available
+      if (tenantId) {
+        headers['X-Tenant-ID'] = tenantId;
+      }
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers,
         body: JSON.stringify(data),
-        // Add mode: 'cors' to explicitly allow cross-origin requests
         mode: 'cors',
-        // Add credentials: 'omit' to avoid sending cookies
         credentials: 'omit',
       });
       
