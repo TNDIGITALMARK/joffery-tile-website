@@ -76,7 +76,7 @@ The form requires a backend API endpoint and supports multi-tenant configuration
 
 ```
 # Required: Backend API URL
-NEXT_PUBLIC_API_URL=http://localhost:3001/api
+NEXT_PUBLIC_API_URL=http://localhost:3001
 
 # Optional: Tenant ID for multi-tenant systems
 NEXT_PUBLIC_TENANT_ID=your_firebase_auth_uid_here
@@ -84,7 +84,7 @@ NEXT_PUBLIC_TENANT_ID=your_firebase_auth_uid_here
 
 **Environment Variable Details:**
 
-- `NEXT_PUBLIC_API_URL`: The base URL of your tenant API (defaults to `http://localhost:3001/api`)
+- `NEXT_PUBLIC_API_URL`: The base URL of your tenant API (defaults to `http://localhost:3001`)
 - `NEXT_PUBLIC_TENANT_ID`: Your Firebase Auth UID for multi-tenant isolation (optional)
 
 **Multi-Tenant Behavior:**

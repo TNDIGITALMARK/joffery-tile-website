@@ -39,14 +39,14 @@ The component supports the following environment variables:
 
 ```
 # Required: Backend API URL
-NEXT_PUBLIC_API_URL=http://localhost:3001/api
+NEXT_PUBLIC_API_URL=http://localhost:3001
 
 # Optional: Tenant ID for multi-tenant systems
 NEXT_PUBLIC_TENANT_ID=your_firebase_auth_uid_here
 ```
 
 **Variable Details:**
-- `NEXT_PUBLIC_API_URL`: Backend API base URL (defaults to `http://localhost:3001/api`)
+- `NEXT_PUBLIC_API_URL`: Backend API base URL (defaults to `http://localhost:3001`)
 - `NEXT_PUBLIC_TENANT_ID`: Firebase Auth UID for multi-tenant isolation (optional)
 
 ### Setting the environment variables
@@ -55,7 +55,7 @@ For local development:
 1. Create a `.env.local` file in the root of your Next.js project
 2. Add the required variables:
    ```
-   NEXT_PUBLIC_API_URL=http://localhost:3001/api
+   NEXT_PUBLIC_API_URL=http://localhost:3001
    NEXT_PUBLIC_TENANT_ID=your_firebase_auth_uid_here
    ```
 

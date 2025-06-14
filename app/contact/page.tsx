@@ -25,7 +25,7 @@ export default function ContactPage() {
         {/* Debug information */}
         <div className="mt-8 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm">
           <p className="font-medium mb-2">Debug Information:</p>
-          <p>API URL: <code>http://localhost:4000/api</code></p>
+          <p>API URL: <code>http://localhost:3001/api</code></p>
           <p className="mt-2">Make sure your backend server is running at this URL.</p>
         </div>
       </div>
