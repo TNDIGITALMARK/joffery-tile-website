@@ -195,10 +195,12 @@ export default function ShopPage() {
 
   if (!tenantId) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Configuration Required</h2>
-          <p className="text-gray-600">Please configure NEXT_PUBLIC_TENANT_ID in your environment variables.</p>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto p-8">
+          <div className="bg-gray-50 rounded-2xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Configuration Required</h2>
+            <p className="text-gray-600">Please configure NEXT_PUBLIC_TENANT_ID in your environment variables.</p>
+          </div>
         </div>
       </div>
     );
@@ -206,149 +208,229 @@ export default function ShopPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600 font-medium">Loading products...</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Shop</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <button
-            onClick={fetchData}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-          >
-            Try Again
-          </button>
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto p-8">
+          <div className="bg-gray-50 rounded-2xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Error Loading Shop</h2>
+            <p className="text-gray-600 mb-6">{error}</p>
+            <button
+              onClick={fetchData}
+              className="bg-gray-900 text-white px-8 py-3 rounded-xl font-semibold hover:bg-gray-800 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-gray-900">Shop</h1>
-              <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-500">
-                <span>{activeProducts.length} products</span>
-                <span>•</span>
-                <span>{activeCollections.length} collections</span>
-              </div>
+    <div className="min-h-screen bg-white">
+
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Storefront Header */}
+        <motion.div 
+          className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Browse Products</h2>
+              <p className="text-gray-600">
+                Use the sidebar to browse by collections and filter products.
+              </p>
             </div>
-            
-            <div className="flex items-center space-x-4">
-              {/* Search */}
-              <div className="relative">
-                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
-                />
-              </div>
-
-              {/* Filters Toggle */}
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg border transition-colors ${
-                  showFilters 
-                    ? 'bg-blue-50 border-blue-200 text-blue-700' 
-                    : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                <FunnelIcon className="h-4 w-4" />
-                <span>Filters</span>
-              </button>
-
+            <div className="flex items-center gap-4">
               {/* View Mode Toggle */}
-              <div className="flex items-center bg-gray-100 rounded-lg p-1">
+              <div className="flex border border-gray-300 rounded-xl overflow-hidden shadow-sm">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded ${
+                  className={`p-3 transition-all duration-200 ${
                     viewMode === 'grid' 
-                      ? 'bg-white text-gray-900 shadow-sm' 
-                      : 'text-gray-500 hover:text-gray-700'
+                      ? 'bg-blue-600 text-white shadow-sm' 
+                      : 'bg-white text-gray-600 hover:bg-gray-50'
                   }`}
                 >
-                  <Squares2X2Icon className="h-4 w-4" />
+                  <Squares2X2Icon className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`p-2 rounded ${
+                  className={`p-3 transition-all duration-200 ${
                     viewMode === 'list' 
-                      ? 'bg-white text-gray-900 shadow-sm' 
-                      : 'text-gray-500 hover:text-gray-700'
+                      ? 'bg-blue-600 text-white shadow-sm' 
+                      : 'bg-white text-gray-600 hover:bg-gray-50'
                   }`}
                 >
-                  <ListBulletIcon className="h-4 w-4" />
+                  <ListBulletIcon className="w-4 h-4" />
                 </button>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      {/* Filters Panel */}
-      {showFilters && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className="bg-white border-b"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Collection Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Collection</label>
-                <select
-                  value={selectedCollection}
-                  onChange={(e) => setSelectedCollection(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">All Collections</option>
-                  {activeCollections.map(collection => (
-                    <option key={collection.id} value={collection.id}>
-                      {collection.name}
-                    </option>
-                  ))}
-                </select>
+        {/* Active Filters Display */}
+        {(searchTerm || selectedCategory || selectedCollection || priceRange || showFeaturedOnly) && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {searchTerm && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                Search: "{searchTerm}"
+                <button onClick={() => setSearchTerm('')}>
+                  <XMarkIcon className="w-4 h-4" />
+                </button>
+              </span>
+            )}
+            {selectedCollection && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">
+                <TagIcon className="w-4 h-4" />
+                {collections.find(c => c.id === selectedCollection)?.name}
+                <button onClick={() => setSelectedCollection('')}>
+                  <XMarkIcon className="w-4 h-4" />
+                </button>
+              </span>
+            )}
+            {selectedCategory && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">
+                <TagIcon className="w-4 h-4" />
+                {selectedCategory}
+                <button onClick={() => setSelectedCategory('')}>
+                  <XMarkIcon className="w-4 h-4" />
+                </button>
+              </span>
+            )}
+            {priceRange && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                <span>$</span>
+                ${priceRange.min} - ${priceRange.max}
+                <button onClick={() => setPriceRange(null)}>
+                  <XMarkIcon className="w-4 h-4" />
+                </button>
+              </span>
+            )}
+            {showFeaturedOnly && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                <StarIcon className="w-4 h-4" />
+                Featured Only
+                <button onClick={() => setShowFeaturedOnly(false)}>
+                  <XMarkIcon className="w-4 h-4" />
+                </button>
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Main Content with Sidebar */}
+        <div className="flex gap-8">
+          {/* Ecommerce Sidebar */}
+          <div className="w-80 flex-shrink-0">
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sticky top-8">
+              {/* Search */}
+              <div className="mb-6">
+                <label className="block text-sm font-semibold text-gray-900 mb-3">Search Products</label>
+                <div className="relative">
+                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  />
+                </div>
               </div>
 
-              {/* Category Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">All Categories</option>
-                  {categories.map(category => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
+              {/* Collections Filter */}
+              <div className="mb-6">
+                <label className="block text-sm font-semibold text-gray-900 mb-3">Shop by Collection</label>
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setSelectedCollection('')}
+                    className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+                      !selectedCollection 
+                        ? 'bg-blue-50 text-blue-700 border border-blue-200' 
+                        : 'hover:bg-gray-50 border border-transparent'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium">All Products</span>
+                      <span className="text-sm text-gray-500">{activeProducts.length}</span>
+                    </div>
+                  </button>
+                  {activeCollections.map((collection) => (
+                    <button
+                      key={collection.id}
+                      onClick={() => setSelectedCollection(collection.id)}
+                      className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${
+                        selectedCollection === collection.id
+                          ? 'bg-blue-50 text-blue-700 border border-blue-200' 
+                          : 'hover:bg-gray-50 border border-transparent'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium">{collection.name}</span>
+                        <span className="text-sm text-gray-500">{collection.productIds?.length || 0}</span>
+                      </div>
+                      {collection.description && (
+                        <p className="text-xs text-gray-500 mt-1 truncate">{collection.description}</p>
+                      )}
+                    </button>
                   ))}
-                </select>
+                </div>
               </div>
 
-              {/* Sort */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+              {/* Categories Filter */}
+              {categories.length > 0 && (
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold text-gray-900 mb-3">Categories</label>
+                  <div className="space-y-2">
+                    <button
+                      onClick={() => setSelectedCategory('')}
+                      className={`w-full text-left px-4 py-2 rounded-lg transition-colors text-sm ${
+                        !selectedCategory 
+                          ? 'bg-purple-50 text-purple-700' 
+                          : 'hover:bg-gray-50'
+                      }`}
+                    >
+                      All Categories
+                    </button>
+                    {categories.map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => setSelectedCategory(category)}
+                        className={`w-full text-left px-4 py-2 rounded-lg transition-colors text-sm ${
+                          selectedCategory === category
+                            ? 'bg-purple-50 text-purple-700' 
+                            : 'hover:bg-gray-50'
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Price Sort */}
+              <div className="mb-6">
+                <label className="block text-sm font-semibold text-gray-900 mb-3">Sort by Price</label>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white text-sm"
                 >
                   <option value="newest">Newest First</option>
                   <option value="name">Name A-Z</option>
@@ -358,117 +440,95 @@ export default function ShopPage() {
               </div>
 
               {/* Featured Toggle */}
-              <div className="flex items-center">
-                <label className="flex items-center space-x-2 cursor-pointer">
+              <div className="mb-6">
+                <label className="flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     checked={showFeaturedOnly}
                     onChange={(e) => setShowFeaturedOnly(e.target.checked)}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
                   />
-                  <span className="text-sm font-medium text-gray-700">Featured Only</span>
+                  <span className="ml-3 text-sm font-medium text-gray-700">Featured products only</span>
                 </label>
               </div>
-            </div>
 
-            {/* Clear Filters */}
-            {(searchTerm || selectedCategory || selectedCollection || showFeaturedOnly || priceRange) && (
-              <div className="mt-4 flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-500">Active filters:</span>
-                  {searchTerm && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      Search: {searchTerm}
-                    </span>
-                  )}
-                  {selectedCategory && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      Category: {selectedCategory}
-                    </span>
-                  )}
-                  {selectedCollection && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      Collection: {collections.find(c => c.id === selectedCollection)?.name}
-                    </span>
-                  )}
-                  {showFeaturedOnly && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      Featured Only
-                    </span>
+              {/* Clear Filters */}
+              {(searchTerm || selectedCategory || selectedCollection || priceRange || showFeaturedOnly) && (
+                <motion.button
+                  onClick={clearFilters}
+                  className="w-full px-4 py-3 text-sm font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Clear All Filters
+                </motion.button>
+              )}
+            </div>
+          </div>
+
+          {/* Products Grid */}
+          <div className="flex-1 min-w-0">
+            <motion.div 
+              className={`grid gap-6 ${
+                viewMode === 'grid' 
+                  ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
+                  : 'grid-cols-1 max-w-4xl mx-auto'
+              }`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              {filteredProducts.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                >
+                                     <StorefrontProductCard
+                     product={product}
+                     onClick={() => handleProductClick(product)}
+                   />
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Empty State */}
+            {filteredProducts.length === 0 && (
+              <motion.div 
+                className="text-center py-20"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="max-w-lg mx-auto">
+                  <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6">
+                    <Squares2X2Icon className="w-12 h-12 text-gray-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    No products found
+                  </h3>
+                  <p className="text-gray-600 mb-8 text-lg leading-relaxed">
+                    {searchTerm || selectedCategory || selectedCollection || priceRange || showFeaturedOnly
+                      ? 'No products match your current filters. Try adjusting your search criteria.'
+                      : 'No products are currently available in your store.'
+                    }
+                  </p>
+                  {(searchTerm || selectedCategory || selectedCollection || priceRange || showFeaturedOnly) && (
+                    <motion.button
+                      onClick={clearFilters}
+                      className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Clear All Filters
+                    </motion.button>
                   )}
                 </div>
-                <button
-                  onClick={clearFilters}
-                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-                >
-                  Clear All
-                </button>
-              </div>
+              </motion.div>
             )}
           </div>
-        </motion.div>
-      )}
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Collections Section */}
-        {filteredCollections.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">Collections</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredCollections.map(collection => (
-                <StorefrontCollectionCard
-                  key={collection.id}
-                  collection={collection}
-                  onClick={() => handleCollectionClick(collection)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Products Section */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">
-            Products ({filteredProducts.length})
-          </h2>
         </div>
-
-        {filteredProducts.length === 0 ? (
-          <div className="text-center py-12">
-            <CubeIcon className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No products found</h3>
-            <p className="mt-1 text-sm text-gray-500">
-              {products.length === 0 
-                ? "No products have been added to your store yet."
-                : "Try adjusting your search or filter criteria."
-              }
-            </p>
-            {(searchTerm || selectedCategory || selectedCollection || showFeaturedOnly) && (
-              <button
-                onClick={clearFilters}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-              >
-                Clear Filters
-              </button>
-            )}
-          </div>
-        ) : (
-          <div className={`grid gap-6 ${
-            viewMode === 'grid' 
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-              : 'grid-cols-1'
-          }`}>
-            {filteredProducts.map(product => (
-              <StorefrontProductCard
-                key={product.id}
-                product={product}
-                onClick={() => handleProductClick(product)}
-                viewMode={viewMode}
-              />
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );

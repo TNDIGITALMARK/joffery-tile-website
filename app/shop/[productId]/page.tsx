@@ -292,9 +292,9 @@ export default function ProductDetailPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
-          <div className="space-y-4">
+          <div className="space-y-4 max-w-lg">
             {/* Main Image */}
-            <div className="relative aspect-square bg-white rounded-lg overflow-hidden border border-gray-200">
+            <div className="relative aspect-[4/3] bg-white rounded-lg overflow-hidden border border-gray-200">
               {product.images && product.images.length > 0 ? (
                 <>
                   <img
