@@ -1,3 +1,9 @@
+/**
+ * @component ContactForm
+ * @version 1.0.0
+ * @lastUpdated 2024-01-15T10:30:00.000Z
+ * @description A responsive contact form component with validation that sends data to a backend API
+ */
 'use client';
 
 import { useState } from 'react';

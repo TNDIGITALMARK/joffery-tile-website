@@ -1,3 +1,9 @@
+/**
+ * @component NewsletterSignup
+ * @version 1.0.0
+ * @lastUpdated 2024-01-15T10:30:00.000Z
+ * @description A newsletter subscription form with optional name fields, available in both full and compact modes
+ */
 'use client';
 
 import { useState } from 'react';

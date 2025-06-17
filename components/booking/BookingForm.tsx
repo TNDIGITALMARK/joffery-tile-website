@@ -1,3 +1,9 @@
+/**
+ * @component BookingForm
+ * @version 1.0.0
+ * @lastUpdated 2024-01-15T10:30:00.000Z
+ * @description A Calendly-style appointment booking form with large calendar interface, time slot selection, and customer details form
+ */
 'use client';
 
 import { useState, useMemo } from 'react';

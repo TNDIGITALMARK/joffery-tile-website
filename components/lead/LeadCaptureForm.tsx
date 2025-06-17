@@ -1,3 +1,9 @@
+/**
+ * @component LeadCaptureForm
+ * @version 1.0.0
+ * @lastUpdated 2024-01-15T10:30:00.000Z
+ * @description A comprehensive lead capture form with business details, contact information, and interest/service selection
+ */
 'use client';
 
 import { useState } from 'react';
