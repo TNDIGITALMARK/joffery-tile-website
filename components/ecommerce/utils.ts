@@ -71,6 +71,6 @@ export const getUniqueCategories = (products: Product[]): string[] => {
   return [...new Set(
     getActiveProducts(products)
       .map(p => p.category)
-      .filter(Boolean)
+      .filter((category): category is string => Boolean(category))
   )].sort();
 }; 

@@ -72,20 +72,20 @@ export const ProductGrid = ({
       const [productsResponse, collectionsResponse] = await Promise.all([
         fetch(`${API_BASE_URL}/storefront/${tenantId}/products`, {
           headers: { 'X-Tenant-ID': tenantId }
-        }).catch(() => ({ ok: false })),
+        }).catch(() => null),
         fetch(`${API_BASE_URL}/storefront/${tenantId}/collections`, {
           headers: { 'X-Tenant-ID': tenantId }
-        }).catch(() => ({ ok: false }))
+        }).catch(() => null)
       ]);
 
       let productsData = { products: [] };
       let collectionsData = { collections: [] };
 
-      if (productsResponse.ok) {
+      if (productsResponse?.ok) {
         productsData = await productsResponse.json();
       }
 
-      if (collectionsResponse.ok) {
+      if (collectionsResponse?.ok) {
         collectionsData = await collectionsResponse.json();
       }
 

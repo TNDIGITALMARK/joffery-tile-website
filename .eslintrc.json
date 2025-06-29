@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript"
+  ],
+  "plugins": ["unused-imports"],
+  "rules": {
+    // Enhanced unused imports handling
+    "unused-imports/no-unused-imports": "error",
+    "@typescript-eslint/no-unused-vars": "off",
+    
+    // TypeScript rules (keep existing Next.js setup)
+    "@typescript-eslint/no-explicit-any": "off",
+    
+    // React rules
+    "react/no-unescaped-entities": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    
+    // Next.js rules
+    "@next/next/no-img-element": "warn",
+    
+    // General rules
+    "no-console": "off"
+  }
+} 

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { useRouter, useParams } from 'next/navigation';
 import {
   ArrowLeftIcon,
@@ -11,7 +10,6 @@ import {
   PhotoIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  CheckIcon,
   XMarkIcon,
   StarIcon,
   TruckIcon,

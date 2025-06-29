@@ -5,29 +5,17 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import {
   MagnifyingGlassIcon,
-  FunnelIcon,
   Squares2X2Icon,
   ListBulletIcon,
-  ChevronDownIcon,
   XMarkIcon,
   StarIcon,
-  TagIcon,
-  CodeBracketIcon,
-  GlobeAltIcon,
-  CubeIcon,
-  Cog6ToothIcon,
-  EyeIcon,
-  EyeSlashIcon,
-  CheckCircleIcon,
-  PlusIcon
+  TagIcon
 } from '@heroicons/react/24/outline';
 import { 
-  StorefrontProductCard, 
-  StorefrontCollectionCard,
+  StorefrontProductCard,
   type Product,
   type Collection,
   getActiveProducts,
-  getFeaturedProducts,
   getActiveCollections,
   searchProducts,
   getProductsByCategory
@@ -168,7 +156,7 @@ export default function ShopPage() {
   const categories = [...new Set(
     getActiveProducts(products)
       .map(p => p.category)
-      .filter(Boolean)
+      .filter((category): category is string => Boolean(category))
   )].sort();
 
   const filteredProducts = getFilteredProducts();

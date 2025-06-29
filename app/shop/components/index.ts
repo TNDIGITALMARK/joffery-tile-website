@@ -6,6 +6,10 @@ export { StorefrontCollectionCard, type Collection } from './StorefrontCollectio
 export { StorefrontLayout } from './StorefrontLayout';
 export { ProductDetailPage } from './ProductDetailPage';
 
+// Import types for use in utility functions
+import type { Product } from './StorefrontProductCard';
+import type { Collection } from './StorefrontCollectionCard';
+
 // Types
 export interface StorefrontConfig {
   storeName: string;

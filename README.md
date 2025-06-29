@@ -51,6 +51,39 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - ✅ Animations with Framer Motion
 - ✅ Beautiful contact form with validation
 - ✅ Backend API integration
+- ✅ Enhanced ESLint configuration with powerful plugins
+
+## Enhanced Lint System
+
+This template includes an optimized ESLint configuration with the essential `unused-imports` plugin for automatic code cleanup:
+
+### Available Commands
+```bash
+# Standard Next.js lint
+npm run lint
+
+# Enhanced lint with auto-fix (removes unused imports automatically)
+npm run lint:fix
+
+# Strict mode (no warnings allowed)
+npm run lint:enhanced
+```
+
+### Key Features
+- **Automatic unused import removal** with `eslint-plugin-unused-imports` (eliminates #1 build failure cause)
+- **Built-in Next.js TypeScript linting** (already included with Next.js)
+- **Built-in React best practices** (via Next.js ESLint config)
+- **Allows `any` usage** (no TypeScript warnings for faster development)
+- **Minimal overhead** (only essential plugins installed)
+
+### Phoenix Repair Integration
+This enhanced lint system is automatically used by Phoenix repair services to:
+- Clean up unused imports and dead code
+- Fix common TypeScript/React issues
+- Improve code quality before main repairs
+- Reduce build errors and repair complexity
+
+For detailed information, see [ENHANCED_LINT_SYSTEM.md](./ENHANCED_LINT_SYSTEM.md).
 
 ## Contact Form
 
