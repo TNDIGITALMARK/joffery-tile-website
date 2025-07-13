@@ -1,10 +1,9 @@
 'use client';
 
-import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { Star, Filter, Search, ArrowRight, Grid3X3, List, CheckCircle, Clock, Users, Hammer, Home, Building2, Palette, Heart, Phone, Mail, MapPin } from 'lucide-react';
+import { Star, Search, ArrowRight, Grid3X3, List, Clock, Phone, Mail, MapPin } from 'lucide-react';
 
 export default function ProjectGallery() {
   const [isVisible, setIsVisible] = useState(false);

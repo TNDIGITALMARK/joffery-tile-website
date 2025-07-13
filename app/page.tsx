@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { Star, Shield, Award, Phone, Mail, MapPin, CheckCircle, Clock, Users, Hammer, Home as HomeIcon, Building2, Palette, Heart } from 'lucide-react';
+import { Star, Shield, Award, Phone, Mail, MapPin, CheckCircle, Clock, Hammer, Home as HomeIcon, Building2, Palette, Heart } from 'lucide-react';
 
 // SEO Metadata (handled by layout, but structured data here)
 const businessData = {

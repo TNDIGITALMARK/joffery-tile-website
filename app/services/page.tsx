@@ -1,12 +1,10 @@
 'use client';
 
-import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { 
-  Star, Shield, Award, Phone, Mail, MapPin, CheckCircle, Clock, Users, 
-  Hammer, Home, Building2, Palette, Heart, ArrowRight, Droplets, 
+  Star, Shield, Award, Phone, Mail, MapPin, Clock, Users, Home, Building2, Palette, Heart, ArrowRight, Droplets, 
   Thermometer, Eye, Wrench, Zap, Globe 
 } from 'lucide-react';
 
