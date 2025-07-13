@@ -46,7 +46,7 @@ export default function Home() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [heroImages.length]);
 
   // Intersection Observer for scroll animations
   useEffect(() => {

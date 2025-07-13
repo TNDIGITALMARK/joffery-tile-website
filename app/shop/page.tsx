@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import {
@@ -42,7 +42,7 @@ export default function ShopPage() {
   const tenantId = process.env.NEXT_PUBLIC_TENANT_ID;
 
   // Fetch data
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     if (!tenantId) {
       setError('Tenant ID not configured');
       setLoading(false);
@@ -82,11 +82,11 @@ export default function ShopPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [tenantId]);
 
   useEffect(() => {
     fetchData();
-  }, [tenantId]);
+  }, [tenantId, fetchData]);
 
   // Get filtered and sorted data
   const getFilteredProducts = () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import {
   ArrowLeftIcon,
@@ -58,7 +58,7 @@ export default function ProductDetailPage() {
   const tenantId = process.env.NEXT_PUBLIC_TENANT_ID;
 
   // Fetch product data
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     if (!tenantId || !productId) return;
 
     try {
@@ -89,11 +89,11 @@ export default function ProductDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [tenantId, productId]);
 
   useEffect(() => {
     fetchProduct();
-  }, [tenantId, productId]);
+  }, [tenantId, productId, fetchProduct]);
 
   if (!tenantId) {
     return (
